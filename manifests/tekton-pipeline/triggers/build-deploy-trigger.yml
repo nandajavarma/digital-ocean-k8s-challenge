@@ -84,7 +84,7 @@ spec:
   - bindings:
     - ref: tekton-argocd-blog-build-git-tb
     template:
-      name: tekton-argocd-blog-build-tt
+      ref: tekton-argocd-blog-build-tt
 
 ---
 
