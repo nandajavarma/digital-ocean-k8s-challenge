@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: build-task-configmap
+data:
+  DOCKER_TAG: "dev"
+  DOCKER_IMAGE_NAME: myblog
+  DOCKER_NAMESPACE: blog

@@ -2,19 +2,15 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: tekton-pipeline
-  # You'll usually want to add your resources to the argocd namespace.
   namespace: argocd
 spec:
-  # The project the application belongs to.
   project: default
 
-  # Source of the application manifests
   source:
     repoURL: https://github.com/nandajavarma/digital-ocean-k8s-challenge
     targetRevision: HEAD
     path: manifests/tekton-pipeline/
 
-  # Destination cluster and namespace to deploy the application
   destination:
     server: https://kubernetes.default.svc
-    namespace: blog
+    namespace: tekton-argocd-pipeline
