@@ -24,13 +24,14 @@ spec:
     envFrom:
       - configMapRef:
           name: build-task-configmap
+      - secretRef:
+          name: basic-docker-user-pass
   steps:
     - name: build-and-push
       image: gcr.io/kaniko-project/executor:v0.10.0
-      env:
-        - name: "DOCKER_CONFIG"
-          value: "/builder/home/.docker/"
       command:
+        - mkdir -p /kaniko/.docker
+        - echo "{\"auths\":{\"registry.digitalocean.com)\":{\"auth\":\"$(printf '%s:%s' '${username}' '${password}' | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
         - /kaniko/executor
       args:
         - --dockerfile=$(params.pathToContext)/$(params.pathToDockerFile)
