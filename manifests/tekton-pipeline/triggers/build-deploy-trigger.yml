@@ -68,7 +68,7 @@ metadata:
 spec:
   params:
   - name: git-app-repo-url
-    value: https://github.com/nandajavarma/blog
+    value: $(body.repository.url)
   - name: git-app-repo-revision
     value: master
 
