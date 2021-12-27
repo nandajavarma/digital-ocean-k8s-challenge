@@ -4,5 +4,5 @@ metadata:
   name: argocd-env-configmap
 data:
   ARGOCD_SERVER: cluster.nandaja.space
-  ARGOCD_APPLICATION_NAME: tekton-pipeline-app
+  ARGOCD_APPLICATION_NAME: myblog
   ARGOCD_APPLICATION_REVISION: HEAD
