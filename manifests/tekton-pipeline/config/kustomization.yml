@@ -18,6 +18,11 @@ secretGenerator:
     envs:
       - secrets/git_app_secrets.env
   - behavior: merge
+    name: basic-docker-user-pass
+    type: kubernetes.io/basic-auth
+    envs:
+      - secrets/docker_secrets.env
+  - behavior: merge
     name: argocd-env-secret
     envs:
       - secrets/argocd_secrets.env
