@@ -12,7 +12,7 @@ spec:
       - name: image-registry
         type: image
   params:
-    - name: .
+    - name: pathToDockerFile
       description: Path to Dockerfile
       default: Dockerfile
     - name: pathToContext
