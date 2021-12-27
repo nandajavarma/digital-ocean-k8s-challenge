@@ -2,7 +2,7 @@
 apiVersion: tekton.dev/v1alpha1
 kind: Pipeline
 metadata:
-  name: tekton-argocd-example-build-deploy-pipeline
+  name: tekton-argocd-pipeline-build-deploy-pipeline
 spec:
   resources:
     - name: git-app-repo
