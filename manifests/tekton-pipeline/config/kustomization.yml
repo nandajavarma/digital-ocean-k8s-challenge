@@ -1,0 +1,28 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Kustomize will add the namespace and labels to all files being kustomized
+namespace: tekton-argocd-pipeline
+commonLabels:
+  pipeline: tekton
+  deploy: argocd
+
+resources:
+  - namespace.yml
+  - secrets.yml
+
+secretGenerator:
+  - behavior: merge
+    name: basic-git-app-repo-user-pass
+    type: kubernetes.io/basic-auth
+    envs:
+      - secrets/git_app_secrets.env
+  - behavior: merge
+    name: basic-docker-user-pass
+    type: kubernetes.io/basic-auth
+    envs:
+      - secrets/docker_secrets.env
+  - behavior: merge
+    name: argocd-env-secret
+    envs:
+      - secrets/argocd_secrets.env

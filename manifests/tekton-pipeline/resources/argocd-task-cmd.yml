@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-env-configmap
+data:
+  ARGOCD_SERVER: https://cluster.nandaja.space/argo-cd
+  ARGOCD_APPLICATION_NAME: tekton-pipeline-app
+  ARGOCD_APPLICATION_REVISION: HEAD
