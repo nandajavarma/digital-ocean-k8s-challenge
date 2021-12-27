@@ -37,7 +37,7 @@ spec:
       params:
       - name: url
         # Replace <docker_registry_name> with your docker registry name (e.g. my-acr.azurecr.io)
-        value: registry.digitalocean.com
+        value: index.docker.io
       type: image
   - apiVersion: tekton.dev/v1alpha1
     kind: PipelineRun
