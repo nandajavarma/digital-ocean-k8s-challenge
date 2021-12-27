@@ -6,4 +6,4 @@ metadata:
 data:
   DOCKER_TAG: "dev"
   DOCKER_IMAGE_NAME: myblog
-  DOCKER_NAMESPACE: nandajavarma
+  DOCKER_NAMESPACE: do-challenge

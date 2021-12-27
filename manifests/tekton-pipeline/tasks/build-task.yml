@@ -29,9 +29,24 @@ spec:
   steps:
     - name: build-and-push
       image: gcr.io/kaniko-project/executor:v0.10.0
+      env:
+        - name: "DOCKER_CONFIG"
+          value: "/kaniko/.docker/"
       command:
         - /kaniko/executor
       args:
         - --dockerfile=$(params.pathToContext)/$(params.pathToDockerFile)
         - --destination=$(resources.outputs.image-registry.url)/$(DOCKER_NAMESPACE)/$(DOCKER_IMAGE_NAME):$(DOCKER_TAG)
         - --context=$(params.pathToContext)
+      volumeMounts:
+        - name: docker-config
+          mountPath: /kaniko/.docker
+  volumes:
+  - name: docker-config
+    projected:
+      sources:
+      - secret:
+          name: basic-docker-user-pass
+          items:
+            - key: .dockerconfigjson
+              path: config.json
