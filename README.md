@@ -120,6 +120,32 @@ secret/basic-git-app-repo-user-pass created
 > concepts](https://tekton.dev/docs/concepts/) of tekton
 > for this section
 
+The next step is to configure tekton to automatically build and deploy the blog
+application. Like mentioned previously, we make our tekton pipeline a argocd
+`Application`, which will get triggered on a change to the github code of the
+`blog` and in turn updates the `blog` application.
+
+For convenience, we will use this repo as the `tekton-pipeline` application. The
+entire code for the pipeline is present in the directory
+[`tekton-pipeline`](./manifests/tekton-pipeline/). We have a bunch of important
+parts in this directory:
+
+- Tasks: A task is a step that you would like to execute in the process of
+  CI/CD. For example building the docker image is a task.
+- Triggers: Triggers like the name suggest provides an eventlistener to trigger
+  a pipeline. It also provide templates for other pipeline related resources.
+- Pipelines: A collection of tasks
+- `resources` directory: This resource contains a bunch of role bindings and
+  configmap we need for the working of this pipeline including binding to service
+  account that give access to registry secret and github secret.
+
+You can read the files for a deeper understanding of what they are doing.
+Explaining each of them in depth is out of the scope of this write-up.
+
+For argocd to deploy the `tekton-pipeline` application, we also need a
+`kustomization.yml` file in the base of the path. You can find that
+[`here`](./manifests/tekton-pipeline/kustomization.yml).
+
 ## 🔭 Add repos to argocd
 
 > 🚧 I recommend understanding the [core
@@ -152,7 +178,7 @@ application.argoproj.io/tekton-pipeline created
 You can check the argocd UI and you will see both the Applications. You can go
 ahead and sync both the applications.
 
-[argo UI](./assests/argoapps.png)
+[argo UI](./assets/argoapps.png)
 
 You will see that the tekton-pipeline application works fine, whereas the
 `myblog` application is in `unhealthy` state. This is because the docker image
@@ -165,6 +191,19 @@ $ kubectl get pods -n blog
 NAME                      READY   STATUS             RESTARTS   AGE
 myblog-7f9fb84d98-4wf79   0/1     ImagePullBackOff   0          52s
 ```
+
+## Configure a webhook from github to the tekton trigger
+
+From the trigger file
+[`build-deploy-trigger.yml`](./manifests/tekton-pipeline/triggers/build-deploy-trigger.yml),
+you can see that we have created an ambassador mapping, that will map the prefix
+`/tekton-argocd-blog-build-mapping/` of the ambassador endpoint to the
+`tekton-argocd-blog-build-el` Service which is practically the event listener
+of tekton. All we need to do is to configure `Github` repo of blog to send a
+`GET` request with JSON payload on all `push` events to the master branch of
+repo. You can find the option to do this in `Settings -> Webhooks` of the repo.
+The URL to send webhook to would be
+`cluster.nandaja.space/tekton-argocd-blog-build-mapping/` in my case.
 
 ## 🧨 See the magic in action
 
@@ -193,4 +232,7 @@ NAME                      READY   STATUS    RESTARTS   AGE
 myblog-7f9fb84d98-xsszv   1/1     Running   0          3m26s
 ```
 
-`
+You will find the most up-to-date version of the blog at `myblog.nandaja.space`
+as configured with the `service` annotation of the blog.
+
+That's it! Our pipeline setup is complete!
