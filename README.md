@@ -38,7 +38,7 @@ infrastructure for the pipeline.
 
 The configurations and steps to be followed to setup the infrastructure pipeline
 can be found in the [`deployment`](./deployment) directory. Move on to the
-[`README`](./depployment/README.md) there to complete the setup before moving forward.
+[`README`](./deployment/README.md) there to complete the setup before moving forward.
 
 ## Create namespace and secrets for the pipeline
 
