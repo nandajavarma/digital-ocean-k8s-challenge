@@ -23,6 +23,14 @@ Let us get started with the setup!
 > cluster as the application deployment cluster. In reality it is better to
 > separate the argoCD setup from the cluster where to deploy the workload.
 
+## Requirements
+
+The use the following setup, you need the following tools:
+
+- `kubectl` >= `v1.20.0`
+- `terraform` == `v1.0.0`
+- `kustomize` >- `3.8.0`
+
 ## Setup cert-manager
 
 For this setup, I am using the
