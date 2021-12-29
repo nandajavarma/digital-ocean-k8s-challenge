@@ -124,7 +124,7 @@ This will create `CRD`s, `RoleBinding`s and a whole bunch of stuff needed for
 argocd to work.
 
 Once we are done with that, now we have to expose the argoCD using `ambassador`.
-What we are trying to do is to point `cluster.nandaja.space/argocd` to point to
+What we are trying to do is to point [`cluster.nandaja.space/argocd`](https://cluster.nandaja.space) to point to
 our argocd setup. This involves updating a `Deployment` that was created in the
 above command to add the --rootpath=/argo-cd flag to the argocd-server command,
 creating a `Host` and `Mapping` resource for ambassador to route the requests.
@@ -174,7 +174,8 @@ mine!), or via the argocd cli using the new password as follows:
 $ argocd login cluster.nandaja.space --grpc-web-root-path /argo-cd
 ```
 
-Great! we are good with argo too! phew!
+Great! we are good with argo too! phew! You can see my setup of argo here:
+[`cluster.nandaja.space/argocd`](https://cluster.nandaja.space).
 
 ## Install and setup tekton
 
