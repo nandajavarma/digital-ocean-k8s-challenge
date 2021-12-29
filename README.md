@@ -178,7 +178,7 @@ application.argoproj.io/tekton-pipeline created
 You can check the argocd UI and you will see both the Applications. You can go
 ahead and sync both the applications.
 
-[argo UI](./assets/argoapps.png)
+![argo UI](./assets/argoapps.png)
 
 You will see that the tekton-pipeline application works fine, whereas the
 `myblog` application is in `unhealthy` state. This is because the docker image
