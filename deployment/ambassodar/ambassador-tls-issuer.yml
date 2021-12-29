@@ -32,6 +32,7 @@ spec:
   dnsNames:
   # Replace this with the FQDN value
   - cluster.nandaja.space
+  - myblog.nandaja.space
 
 ---
 apiVersion: getambassador.io/v2
