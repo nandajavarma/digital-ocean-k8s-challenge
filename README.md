@@ -1,4 +1,4 @@
-# GitOps pipeline using ArgoCD and Tekton
+# GitOps pipeline using ArgoCD and Tekton 🌵
 
 This is a demo of a kubernetes-native build/deploy pipeline using `Ambassador`,
 `tekton` and `argocd`. The architecture of this pipeline is based of [this
@@ -21,11 +21,11 @@ A gist of how the pipeline would work is as follows:
   it to a registry using `kaniko`
 - The `blog` Application on argo is synced to use the latest updates
 
-> We will only use one k8s cluster for the deployment of argocd and that of the
+> 🚧  We will only use one k8s cluster for the deployment of argocd and that of the
 > workload(blog). I'm sure you already know it, but this is not a great real
 > life practice.
 
-## Setup the Kubernetes cluster
+## ✨ Setup the Kubernetes cluster
 
 We use terraform to setup a Kubernetes cluster on digital ocean. The
 configuration needed to setup the cluster using terraform on DigitalOcean are
@@ -34,13 +34,13 @@ present in the [`terraform`](./terraform) directory. Please refer the
 Once you have setup the cluster, move on to the next step to setup the
 infrastructure for the pipeline.
 
-## Install and setup ambassador, tekton and argocd
+## 🏗️ Install and setup ambassador, tekton and argocd
 
 The configurations and steps to be followed to setup the infrastructure pipeline
 can be found in the [`deployment`](./deployment) directory. Move on to the
 [`README`](./deployment/README.md) there to complete the setup before moving forward.
 
-## Create namespace and secrets for the pipeline
+## ㊙️ Create namespace and secrets for the pipeline
 
 We are almost ready to get started with the pipeline code. We just are in short
 of creating a namespace for the pipeline resources. We will also create secrets in the
@@ -113,8 +113,8 @@ secret/basic-docker-user-pass created
 secret/basic-git-app-repo-user-pass created
 ```
 
-## Create tekton reources, triggers, tasks and pipeline
+## 🧪 Create tekton reources, triggers, tasks and pipeline
 
-## Add repos to argocd
+## 🔭 Add repos to argocd
 
-## See the magic in action
+## 🧨 See the magic in action
