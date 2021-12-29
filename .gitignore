@@ -2,3 +2,4 @@
 .envrc
 .terraform.lock.hcl
 *_secrets.env
+.kubeconfig

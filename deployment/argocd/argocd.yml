@@ -45,7 +45,7 @@ spec:
         - --insecure
         - --rootpath
         - /argo-cd
-        image: argoproj/argocd:v1.7.6
+        image: argoproj/argocd:v2.2.1
         imagePullPolicy: Always
         livenessProbe:
           httpGet:

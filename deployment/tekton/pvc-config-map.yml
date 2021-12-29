@@ -1,0 +1,9 @@
+apiVersion: v1
+data:
+  size: 10Gi
+  storageClassName: manual
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: config-artifact-pvc
+  namespace: tekton-pipelines

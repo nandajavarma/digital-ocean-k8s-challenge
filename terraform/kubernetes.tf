@@ -8,7 +8,7 @@ resource "digitalocean_kubernetes_cluster" "kubernetes_cluster" {
 
   node_pool {
     name       = "nodepool-k8s-challenge"
-    size       = "s-2vcpu-4gb"
+    size       = "s-2vcpu-2gb"
     auto_scale = true
     min_nodes  = 1
     max_nodes  = 4

@@ -27,12 +27,6 @@ spec:
       - secretRef:
           name: basic-docker-user-pass
   steps:
-    - name: debug
-      image: ubuntu
-      script: |
-        #!/usr/bin/env bash
-        echo $username
-        echo $password
     - name: build-and-push
       image: gcr.io/kaniko-project/executor:latest
       env:
