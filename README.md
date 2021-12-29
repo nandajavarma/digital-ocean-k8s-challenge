@@ -232,7 +232,7 @@ NAME                      READY   STATUS    RESTARTS   AGE
 myblog-7f9fb84d98-xsszv   1/1     Running   0          3m26s
 ```
 
-You will find the most up-to-date version of the blog at `myblog.nandaja.space`
+You will find the most up-to-date version of the blog at [`myblog.nandaja.space`](myblog.nandaja.space)
 as configured with the `service` annotation of the blog.
 
 That's it! Our pipeline setup is complete!
