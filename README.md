@@ -59,7 +59,8 @@ create env files used by this config as follows:
     `password` both corresponding to Digitalocean registry.
 
     Go  to `Container Registry` on the navbar of DigitalOcean, go with the `Free`
-    plan for this demo, Create a private container registry to add your images to.
+    plan for this demo, Create a private container registry to add your images
+    to.
     Once the registry is created, to access it, you can create a simple Digital
     Ocean `API` token(say `$DIGITAL_OCEAN_TOKEN`). Try logging in to registry using
     it:
@@ -115,6 +116,81 @@ secret/basic-git-app-repo-user-pass created
 
 ## 🧪 Create tekton reources, triggers, tasks and pipeline
 
+> 🚧 I recommend understanding the [core
+> concepts](https://tekton.dev/docs/concepts/) of tekton
+> for this section
+
 ## 🔭 Add repos to argocd
 
+> 🚧 I recommend understanding the [core
+> concepts](https://argo-cd.readthedocs.io/en/stable/core_concepts/) of argoCD
+> for this section
+
+For this demo, I will be using my [personal
+blog](https://github.com/nandajavarma/blog) to be continuously deployed using
+the tekton pipeline in this repo. My personal project already has the
+`kustomization.yml` file and corresponding resources in the deployment
+directory. For argoCD to identify this repo, we first have to create an
+argocd `Application` corresponding the repo and the path to `kustomization.yml`
+file. You can find this definition in
+[argocd_blog_app.yml](./manifests/argo/argocd_blog_app.yml).
+
+Similarly, to deploy our tekton pipeline in this repo, we have to create a
+`argocd` `Application` corresponding to this repo as well. You can see the
+definition for that in
+[argocd_tekton_pipeline_app.yml](manifests/argo/argocd_tekton_pipeline_app.yml).
+
+We will now create these two applications in the cluster, by running the
+command:
+
+``` sh
+❯ kustomize build ./manifests/argo | kubectl apply -f-
+application.argoproj.io/myblog created
+application.argoproj.io/tekton-pipeline created
+```
+
+You can check the argocd UI and you will see both the Applications. You can go
+ahead and sync both the applications.
+
+[argo UI](./assests/argoapps.png)
+
+You will see that the tekton-pipeline application works fine, whereas the
+`myblog` application is in `unhealthy` state. This is because the docker image
+is not in the registry yet. Worry not, it will get there in the next step
+
+If you try to look at the pods in namespace `blog`, you can verify this:
+
+``` sh
+$ kubectl get pods -n blog
+NAME                      READY   STATUS             RESTARTS   AGE
+myblog-7f9fb84d98-4wf79   0/1     ImagePullBackOff   0          52s
+```
+
 ## 🧨 See the magic in action
+
+Time to see what tekton can do! Make a small change in the app repo(in my case,
+my blog) and push it to github.
+
+In a couple of minutes, if you look at the pods in namespace
+`tekton-argocd-pipeline`, you will see the following activity:
+
+``` sh
+$ kubectl get pods -n tekton-argocd-pipeline
+NAME                                                              READY   STATUS            RESTARTS   AGE
+el-tekton-argocd-blog-build-el-dfb7ff5dc-d2tlk                    1/1     Running           0          17m
+tekton-argoc8b39edc3cec8ab9c412f39ab4d6afdddb9c6fe136e6fdb9-pod   0/4     Completed         0          113s
+tekton-argocd-8b39edc3cec8ac6405ca20941cf43835268c8ae616f95-pod   0/1     PodInitializing   0          20s
+```
+
+Wait for the third pod to complete as well. Basically the job that just
+completed has pushed the docker image to the corresponding registry and the
+third one now is syncing the argocd application corresponding to `myblog`. In a
+few minutes if you check the pod of the blog, you will see:
+
+``` sh
+$ kubectl get pods -n blog
+NAME                      READY   STATUS    RESTARTS   AGE
+myblog-7f9fb84d98-xsszv   1/1     Running   0          3m26s
+```
+
+`
