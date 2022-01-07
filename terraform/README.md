@@ -10,7 +10,11 @@
 For terraform provider  `digitalocean` to get authorized to our account, it will
 look for an environment variable by the name `DIGITALOCEAN_TOKEN`. To get this
 token, you can go to the `API` section of navbar on digitalocean and click on
-`Generate New Token`. Fill in a name and you will get a hash. Export that as
+`Generate New Token`.
+
+![tokengen](../assets/tokengen.png)
+
+Fill in a name and you will get a hash. Export that as
 follows:
 
 ``` sh
@@ -57,7 +61,7 @@ work, we have to do the following:
    export AWS_ACCESS_KEY_ID=<access id from digitalocean>
    export AWS_SECRET_ACCESS_KEY=<secret from digitalocean>
    ```
-   
+
    Note that we are using env vars for `AWS` only because we are reusing the
    same `s3` block to connect to spaces.
 
@@ -101,7 +105,7 @@ In the `kuberentes.tf`, you can also
 see that, we try to get an `ouput` from the operation, which is the `kubeconfig`
 data, which is the configuration we need to connect to the cluster.
 
-## Creating the cluster 
+## Creating the cluster
 
 Now that all the setup are done, we can go ahead and create the cluster, just
 run the following make target to initialize the backend and create the cluster:
@@ -136,4 +140,7 @@ kube-system   do-node-agent-lx9t6                1/1     Running   0          7m
 kube-system   kube-proxy-85p9j                   1/1     Running   0          7m15s
 ```
 
-All is good!
+All is good! You should be able to see the running cluster on the
+digitalocean UI as follows:
+
+![clusterui](../assets/clusterui.png)

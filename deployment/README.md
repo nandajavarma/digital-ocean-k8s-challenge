@@ -11,7 +11,7 @@ We have 4 main components needed to be setup for this GitOps setup:
 - ArgoCD: For continuous deployment of apps to kubernetes cluster
 - Tekton: For setting up pipelines that will do webhook triggered automated
   builds and invoking argoCD to deploy
-
+  
 Apart from the above setups, we use
 [`kaniko`](https://github.com/GoogleContainerTools/kaniko) image to build the
 docker container since using `docker build` inside a kubernetes cluster is not
